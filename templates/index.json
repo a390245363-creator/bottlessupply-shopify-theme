@@ -12,6 +12,26 @@
     "home_hero_section_fiUXyN": {
       "type": "home-hero-section",
       "blocks": {
+        "slide_8WqRck": {
+          "type": "slide",
+          "settings": {
+            "alt_text": "Hero slide image"
+          }
+        },
+        "slide_Y3LhGM": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/d64acadc9bd4d6b516da1b643e472206.png",
+            "alt_text": "Hero slide image"
+          }
+        },
+        "slide_BjRgeV": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/3028134ca0274b4b1ef4100609be084f.png",
+            "alt_text": "Hero slide image"
+          }
+        },
         "slide_bQjjKg": {
           "type": "slide",
           "settings": {
@@ -42,6 +62,9 @@
         }
       },
       "block_order": [
+        "slide_8WqRck",
+        "slide_Y3LhGM",
+        "slide_BjRgeV",
         "slide_bQjjKg",
         "slide_FJHVhB",
         "slide_6eWjjT",
