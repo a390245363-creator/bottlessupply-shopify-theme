@@ -209,7 +209,7 @@
       "name": "视频展示区",
       "settings": {
         "video": "shopify://files/videos/饮料瓶产品线视频.mp4",
-        "youtube_url": "",
+        "youtube_url": "https://admin.shopify.com/store/2scakz-46/content/files/27085798178886?media_type=Video",
         "vimeo_url": "",
         "height_desktop": 450,
         "height_mobile": 400
