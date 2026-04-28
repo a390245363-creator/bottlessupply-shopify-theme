@@ -103,7 +103,7 @@
   {% if section.settings.video %}
     {{
       section.settings.video
-      | video_tag: autoplay: false, loop: true, muted: true, controls: false, preload: 'none'
+      | video_tag: autoplay: true, loop: true, muted: true, controls: false, preload: 'auto'
     }}
   {% elsif section.settings.youtube_url %}
     <iframe
@@ -132,7 +132,7 @@
   {% endif %}
 </div>
 
-{% javascript %}
+<script>
   document.addEventListener('DOMContentLoaded', function () {
     const section = document.querySelector('.section-{{ section.id }}');
     if (!section) return;
@@ -142,14 +142,9 @@
       video.muted = true;
       video.loop = true;
       video.playsInline = true;
-      video.preload = 'none';
+      video.preload = 'auto';
 
       const playVideo = () => {
-        if (!video.dataset.loaded) {
-          video.load();
-          video.dataset.loaded = 'true';
-        }
-
         video.play().catch(() => {});
       };
 
@@ -182,4 +177,4 @@
       }
     }
   });
-{% endjavascript %}
+</script>
