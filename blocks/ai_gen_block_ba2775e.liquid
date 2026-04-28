@@ -1,0 +1,607 @@
+{% doc %}
+  @prompt
+    我要增加快速订购清单 或 Quick Order List
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-quick-order-list-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.container_padding }}px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-quick-order-list__header-{{ ai_gen_id }} {
+    margin-bottom: 24px;
+  }
+
+  .ai-quick-order-list__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 8px 0;
+  }
+
+  .ai-quick-order-list__description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .ai-quick-order-list__form-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ai-quick-order-list__rows-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ai-quick-order-list__row-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 120px 100px 40px;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .ai-quick-order-list__input-{{ ai_gen_id }} {
+    padding: 12px 16px;
+    border: 1px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-size: 14px;
+    background-color: {{ block.settings.input_background_color }};
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-quick-order-list__input-{{ ai_gen_id }}:focus {
+    outline: 2px solid {{ block.settings.button_color }};
+    outline-offset: 0;
+  }
+
+  .ai-quick-order-list__remove-btn-{{ ai_gen_id }} {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background-color: transparent;
+    border: 1px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ block.settings.text_color }};
+    transition: all 0.2s ease;
+  }
+
+  .ai-quick-order-list__remove-btn-{{ ai_gen_id }}:hover {
+    background-color: #ff4444;
+    border-color: #ff4444;
+    color: #ffffff;
+  }
+
+  .ai-quick-order-list__actions-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .ai-quick-order-list__add-row-btn-{{ ai_gen_id }} {
+    padding: 12px 24px;
+    background-color: transparent;
+    color: {{ block.settings.button_color }};
+    border: 1px solid {{ block.settings.button_color }};
+    border-radius: {{ block.settings.button_border_radius }}px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+
+  .ai-quick-order-list__add-row-btn-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+  }
+
+  .ai-quick-order-list__submit-btn-{{ ai_gen_id }} {
+    padding: 12px 32px;
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .ai-quick-order-list__submit-btn-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+  }
+
+  .ai-quick-order-list__submit-btn-{{ ai_gen_id }}:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .ai-quick-order-list__message-{{ ai_gen_id }} {
+    padding: 12px 16px;
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-size: 14px;
+    display: none;
+  }
+
+  .ai-quick-order-list__message-{{ ai_gen_id }}.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
+  }
+
+  .ai-quick-order-list__message-{{ ai_gen_id }}.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-quick-order-list__row-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .ai-quick-order-list__remove-btn-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<quick-order-list-{{ ai_gen_id }} class="ai-quick-order-list-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-quick-order-list__header-{{ ai_gen_id }}">
+    {% if block.settings.title != blank %}
+      <h2 class="ai-quick-order-list__title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+    {% endif %}
+    {% if block.settings.description != blank %}
+      <p class="ai-quick-order-list__description-{{ ai_gen_id }}">{{ block.settings.description }}</p>
+    {% endif %}
+  </div>
+
+  <div class="ai-quick-order-list__form-{{ ai_gen_id }}">
+    <div class="ai-quick-order-list__message-{{ ai_gen_id }}" role="alert"></div>
+
+    <div class="ai-quick-order-list__rows-{{ ai_gen_id }}">
+      {% for i in (1..3) %}
+        <div class="ai-quick-order-list__row-{{ ai_gen_id }}" data-row-index="{{ forloop.index }}">
+          <input
+            type="text"
+            class="ai-quick-order-list__input-{{ ai_gen_id }}"
+            placeholder="{{ block.settings.sku_placeholder }}"
+            data-type="sku"
+            aria-label="Product SKU"
+          >
+          <input
+            type="number"
+            class="ai-quick-order-list__input-{{ ai_gen_id }}"
+            placeholder="{{ block.settings.quantity_placeholder }}"
+            min="1"
+            value="1"
+            data-type="quantity"
+            aria-label="Quantity"
+          >
+          <input
+            type="text"
+            class="ai-quick-order-list__input-{{ ai_gen_id }}"
+            placeholder="Product"
+            readonly
+            data-type="product-name"
+            aria-label="Product name"
+          >
+          <button
+            type="button"
+            class="ai-quick-order-list__remove-btn-{{ ai_gen_id }}"
+            aria-label="Remove row"
+            {% if forloop.index <= 1 %}disabled{% endif %}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="ai-quick-order-list__actions-{{ ai_gen_id }}">
+      <button type="button" class="ai-quick-order-list__add-row-btn-{{ ai_gen_id }}">
+        {{ block.settings.add_row_button_text }}
+      </button>
+      <button type="button" class="ai-quick-order-list__submit-btn-{{ ai_gen_id }}">
+        {{ block.settings.submit_button_text }}
+      </button>
+    </div>
+  </div>
+</quick-order-list-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class QuickOrderList{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.rowsContainer = this.querySelector('.ai-quick-order-list__rows-{{ ai_gen_id }}');
+        this.addRowBtn = this.querySelector('.ai-quick-order-list__add-row-btn-{{ ai_gen_id }}');
+        this.submitBtn = this.querySelector('.ai-quick-order-list__submit-btn-{{ ai_gen_id }}');
+        this.messageEl = this.querySelector('.ai-quick-order-list__message-{{ ai_gen_id }}');
+        this.rowCount = 3;
+      }
+
+      connectedCallback() {
+        this.addRowBtn.addEventListener('click', () => this.addRow());
+        this.submitBtn.addEventListener('click', () => this.handleSubmit());
+        this.rowsContainer.addEventListener('click', (e) => {
+          if (e.target.closest('.ai-quick-order-list__remove-btn-{{ ai_gen_id }}')) {
+            this.removeRow(e.target.closest('.ai-quick-order-list__row-{{ ai_gen_id }}'));
+          }
+        });
+        this.rowsContainer.addEventListener('input', (e) => {
+          if (e.target.dataset.type === 'sku') {
+            this.handleSkuInput(e.target);
+          }
+        });
+      }
+
+      addRow() {
+        this.rowCount++;
+        const newRow = document.createElement('div');
+        newRow.className = 'ai-quick-order-list__row-{{ ai_gen_id }}';
+        newRow.dataset.rowIndex = this.rowCount;
+        newRow.innerHTML = `
+          <input
+            type="text"
+            class="ai-quick-order-list__input-{{ ai_gen_id }}"
+            placeholder="{{ block.settings.sku_placeholder }}"
+            data-type="sku"
+            aria-label="Product SKU"
+          >
+          <input
+            type="number"
+            class="ai-quick-order-list__input-{{ ai_gen_id }}"
+            placeholder="{{ block.settings.quantity_placeholder }}"
+            min="1"
+            value="1"
+            data-type="quantity"
+            aria-label="Quantity"
+          >
+          <input
+            type="text"
+            class="ai-quick-order-list__input-{{ ai_gen_id }}"
+            placeholder="Product"
+            readonly
+            data-type="product-name"
+            aria-label="Product name"
+          >
+          <button
+            type="button"
+            class="ai-quick-order-list__remove-btn-{{ ai_gen_id }}"
+            aria-label="Remove row"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        `;
+        this.rowsContainer.appendChild(newRow);
+      }
+
+      removeRow(row) {
+        if (this.rowsContainer.children.length > 1) {
+          row.remove();
+        }
+      }
+
+      async handleSkuInput(input) {
+        const sku = input.value.trim();
+        const row = input.closest('.ai-quick-order-list__row-{{ ai_gen_id }}');
+        const productNameInput = row.querySelector('[data-type="product-name"]');
+
+        if (!sku) {
+          productNameInput.value = '';
+          row.dataset.variantId = '';
+          return;
+        }
+
+        try {
+          const response = await fetch(`/search/suggest.json?q=${encodeURIComponent(sku)}&resources[type]=product`);
+          const data = await response.json();
+          
+          if (data.resources && data.resources.results && data.resources.results.products) {
+            const products = data.resources.results.products;
+            let foundVariant = null;
+
+            for (const product of products) {
+              if (product.variants) {
+                foundVariant = product.variants.find(v => v.sku && v.sku.toLowerCase() === sku.toLowerCase());
+                if (foundVariant) {
+                  productNameInput.value = product.title;
+                  row.dataset.variantId = foundVariant.id;
+                  break;
+                }
+              }
+            }
+
+            if (!foundVariant) {
+              productNameInput.value = 'Not found';
+              row.dataset.variantId = '';
+            }
+          }
+        } catch (error) {
+          console.error('Error searching for product:', error);
+        }
+      }
+
+      async handleSubmit() {
+        const rows = this.rowsContainer.querySelectorAll('.ai-quick-order-list__row-{{ ai_gen_id }}');
+        const items = [];
+
+        rows.forEach(row => {
+          const variantId = row.dataset.variantId;
+          const quantity = row.querySelector('[data-type="quantity"]').value;
+          
+          if (variantId && quantity > 0) {
+            items.push({
+              id: variantId,
+              quantity: parseInt(quantity)
+            });
+          }
+        });
+
+        if (items.length === 0) {
+          this.showMessage('Please enter at least one valid product SKU', 'error');
+          return;
+        }
+
+        this.submitBtn.disabled = true;
+        this.submitBtn.textContent = 'Adding to cart...';
+
+        try {
+          const response = await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ items })
+          });
+
+          if (response.ok) {
+            this.showMessage(`Successfully added ${items.length} item(s) to cart`, 'success');
+            
+            if (typeof window.dispatchEvent === 'function') {
+              window.dispatchEvent(new Event('cart:refresh'));
+            }
+
+            setTimeout(() => {
+              this.clearForm();
+            }, 2000);
+          } else {
+            const error = await response.json();
+            this.showMessage(error.description || 'Failed to add items to cart', 'error');
+          }
+        } catch (error) {
+          this.showMessage('An error occurred. Please try again.', 'error');
+        } finally {
+          this.submitBtn.disabled = false;
+          this.submitBtn.textContent = '{{ block.settings.submit_button_text }}';
+        }
+      }
+
+      showMessage(text, type) {
+        this.messageEl.textContent = text;
+        this.messageEl.className = `ai-quick-order-list__message-{{ ai_gen_id }} ${type}`;
+        
+        setTimeout(() => {
+          this.messageEl.className = 'ai-quick-order-list__message-{{ ai_gen_id }}';
+        }, 5000);
+      }
+
+      clearForm() {
+        const rows = this.rowsContainer.querySelectorAll('.ai-quick-order-list__row-{{ ai_gen_id }}');
+        rows.forEach((row, index) => {
+          if (index > 0) {
+            row.remove();
+          } else {
+            row.querySelector('[data-type="sku"]').value = '';
+            row.querySelector('[data-type="quantity"]').value = '1';
+            row.querySelector('[data-type="product-name"]').value = '';
+            row.dataset.variantId = '';
+          }
+        });
+      }
+    }
+
+    customElements.define('quick-order-list-{{ ai_gen_id }}', QuickOrderList{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Quick order list",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Quick Order List"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Enter product SKUs and quantities to quickly add items to your cart"
+    },
+    {
+      "type": "text",
+      "id": "sku_placeholder",
+      "label": "SKU placeholder",
+      "default": "Enter SKU"
+    },
+    {
+      "type": "text",
+      "id": "quantity_placeholder",
+      "label": "Quantity placeholder",
+      "default": "Qty"
+    },
+    {
+      "type": "text",
+      "id": "add_row_button_text",
+      "label": "Add row button text",
+      "default": "Add Row"
+    },
+    {
+      "type": "text",
+      "id": "submit_button_text",
+      "label": "Submit button text",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "container_padding",
+      "label": "Container padding",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f3f3f3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "input_background_color",
+      "label": "Input background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button background",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "label": "Input border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quick order list"
+    }
+  ]
+}
+{% endschema %}
