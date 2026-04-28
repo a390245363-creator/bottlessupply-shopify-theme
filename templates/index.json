@@ -156,60 +156,6 @@
         "benefitfontsizemobile": 14
       }
     },
-    "multicolumn_R7Wa7E": {
-      "type": "multicolumn",
-      "blocks": {
-        "column_eh9yKm": {
-          "type": "column",
-          "settings": {
-            "title": "Buy 2-5 Units",
-            "text": "<p><strong>10% Off</strong></p><p>Start saving on your first bulk order</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_HPTCdW": {
-          "type": "column",
-          "settings": {
-            "title": "Buy 6-15 Units",
-            "text": "<p><strong>15% Off</strong></p><p>Increase your savings with larger orders</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_yVHfam": {
-          "type": "column",
-          "settings": {
-            "title": "Buy 25+ Units",
-            "text": "<p><strong>25% Off</strong></p><p>Maximum savings for wholesale orders</p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column_eh9yKm",
-        "column_HPTCdW",
-        "column_yVHfam"
-      ],
-      "name": "t:sections.multicolumn.presets.name",
-      "settings": {
-        "title": "Buy More, Save More",
-        "heading_size": "h1",
-        "image_width": "full",
-        "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "primary",
-        "color_scheme": "scheme-2",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "home_materials_section_8HdDrP": {
       "type": "home-materials-section",
       "blocks": {
@@ -602,7 +548,6 @@
   "order": [
     "home_hero_section_fiUXyN",
     "home_product_info_section_bJdYY8",
-    "multicolumn_R7Wa7E",
     "home_materials_section_8HdDrP",
     "video_banner_RXzrAT",
     "home_endorsement_section_Xppn6Y",
