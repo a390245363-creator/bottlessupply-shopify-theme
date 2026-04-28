@@ -124,7 +124,7 @@
         "mainimagealt": "Product Main Image",
         "imageheight": 450,
         "imageborderradius": 12,
-        "show_quantity_breaks": true,
+        "show_quantity_breaks": false,
         "table_title": "Quantity Discounts",
         "table_helper_text": "Click a tier to auto-fill quantity.",
         "table_col1": "Buy",
