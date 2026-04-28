@@ -112,7 +112,7 @@
       "type": "home-product-info-section",
       "name": "Product Info Section",
       "settings": {
-        "selectedproduct": "",
+        "selectedproduct": "fruit-juice-drinks",
         "useproducttitle": true,
         "useproductdescription": true,
         "useproductimage": true,
