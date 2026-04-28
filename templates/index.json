@@ -110,6 +110,17 @@
     },
     "home_product_info_section_bJdYY8": {
       "type": "home-product-info-section",
+      "blocks": {
+        "one_stop_discounts_one_stop_volume_discounts_Yxd6bG": {
+          "type": "shopify://apps/one-stop-discounts/blocks/one-stop-volume-discounts/059c4289-71dd-457d-ac18-0616e3926263",
+          "settings": {
+            "product": "fruit-juice-drinks"
+          }
+        }
+      },
+      "block_order": [
+        "one_stop_discounts_one_stop_volume_discounts_Yxd6bG"
+      ],
       "name": "Product Info Section",
       "settings": {
         "selectedproduct": "",
